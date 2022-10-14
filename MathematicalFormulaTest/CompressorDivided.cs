@@ -8,12 +8,9 @@ namespace MathematicalFormulaTest
 {
     internal static class CompressorDivided
     {
-        public static (byte, List<byte>, Dictionary<byte, byte>) CompressByteArray(ulong byteArray)
+        public static (byte, List<byte>) CompressByteArray(ulong byteArray)
         {
             List<byte> compressionOperations = new List<byte>();
-            Dictionary<byte, byte> restFromPrimeNumbersWithPositionsOfCompression 
-                = new Dictionary<byte, byte>();
-            byte i = 0;
             while (100 < byteArray)
             {
                 if (byteArray % 5 == 0)
@@ -31,25 +28,23 @@ namespace MathematicalFormulaTest
                 else //prime number
                 {
                     byteArray--;
-                    restFromPrimeNumbersWithPositionsOfCompression.Add(i, 1);
+                    compressionOperations.Add(1);
                 }
-                i++;
             }
-            return ((byte)byteArray, compressionOperations, restFromPrimeNumbersWithPositionsOfCompression);
+            return ((byte)byteArray, compressionOperations);
         }
-        public static ulong DecompressByteArray(byte compressedFile, List<byte> operation,
-            Dictionary<byte, byte> restFromPrimes)
+        public static ulong DecompressByteArray(byte compressedFile, List<byte> operation)
         {
             ulong decopressedFile = compressedFile;
             operation.Reverse();
-            byte howManyOperations = (byte)operation.Count;
-            for (byte i = 0; i < howManyOperations; i++)
+            foreach(byte i in operation)
             {
-                if (restFromPrimes.ContainsKey(i))
+                if (i == 1)
                 {
-                    decopressedFile += restFromPrimes[i];
+                    decopressedFile += i;
+                    continue;
                 }
-                decopressedFile = decopressedFile * operation[i];
+                decopressedFile = decopressedFile * i;
             }
             return decopressedFile;
         }

@@ -19,11 +19,8 @@ namespace MathematicalFormulaTest
         }
         public static void CompressFileByDividing()
         { 
-            (byte, List<byte>, Dictionary<byte, byte>) compressedFile = 
-                CompressorDivided.CompressByteArray(OriginalByteArray);
-            DecompressedByteArray = CompressorDivided.DecompressByteArray(compressedFile.Item1,
-                compressedFile.Item2, compressedFile.Item3);
-            
+            (byte, List<byte>) compressedFile = CompressorDivided.CompressByteArray(OriginalByteArray);
+            DecompressedByteArray = CompressorDivided.DecompressByteArray(compressedFile.Item1, compressedFile.Item2);
             PrintOutCompressionResoult(compressedFile.Item1, "CompressorDivided");
         }
         public static void CompressFileBySqrt()
