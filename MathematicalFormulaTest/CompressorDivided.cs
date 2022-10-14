@@ -8,11 +8,11 @@ namespace MathematicalFormulaTest
 {
     internal static class CompressorDivided
     {
-        public static (byte, List<byte>, List<(byte, byte)>) CompressByteArray(ulong byteArray)
+        public static (byte, List<byte>, Dictionary<byte, byte>) CompressByteArray(ulong byteArray)
         {
             List<byte> compressionOperations = new List<byte>();
-            List<(byte, byte)> restFromPrimeNumbersWithPositionsOfCompression 
-                = new List<(byte, byte)>();
+            Dictionary<byte, byte> restFromPrimeNumbersWithPositionsOfCompression 
+                = new Dictionary<byte, byte>();
             byte i = 0;
             while (100 < byteArray)
             {
@@ -31,11 +31,27 @@ namespace MathematicalFormulaTest
                 else //prime number
                 {
                     byteArray--;
-                    restFromPrimeNumbersWithPositionsOfCompression.Add((1, i));
+                    restFromPrimeNumbersWithPositionsOfCompression.Add(i, 1);
                 }
                 i++;
             }
             return ((byte)byteArray, compressionOperations, restFromPrimeNumbersWithPositionsOfCompression);
+        }
+        public static ulong DecompressByteArray(byte compressedFile, List<byte> operation,
+            Dictionary<byte, byte> restFromPrimes)
+        {
+            ulong decopressedFile = compressedFile;
+            operation.Reverse();
+            byte howManyOperations = (byte)operation.Count;
+            for (byte i = 0; i < howManyOperations; i++)
+            {
+                if (restFromPrimes.ContainsKey(i))
+                {
+                    decopressedFile += restFromPrimes[i];
+                }
+                decopressedFile = decopressedFile * operation[i];
+            }
+            return decopressedFile;
         }
         private static void CompressingOperation(ref ulong byteArray, 
             ref List<byte> compressionOperations, byte divider)
