@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MathematicalFormulaTest
 {
@@ -10,12 +11,10 @@ namespace MathematicalFormulaTest
         // sqrt 3 735 102 564
         static ulong DecompressedByteArray;
         static ulong OriginalByteArray;
+        static byte[] FileInByteArray;
         static void Main(string[] args)
         {
-            Console.WriteLine("Wprowadź kompresowaną wartość");
-            OriginalByteArray = ulong.Parse(Console.ReadLine());
-            //CompressFileBySqrt();
-            CompressFileByDividing();
+            FileInByteArray = LoadFile.FileToByteArray();
         }
         public static void CompressFileByDividing()
         { 

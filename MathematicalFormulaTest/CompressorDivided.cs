@@ -8,6 +8,7 @@ namespace MathematicalFormulaTest
 {
     internal static class CompressorDivided
     {
+        private static byte[] FileByteArray;
         public static (byte, List<byte>) CompressByteArray(ulong byteArray)
         {
             List<byte> compressionOperations = new List<byte>();
@@ -53,6 +54,45 @@ namespace MathematicalFormulaTest
         {
             byteArray = byteArray / divider;
             compressionOperations.Add(divider);
+        }
+        private static void DivideByTwo()
+        {
+            List<byte> compressedFile = new List<byte>();
+            byte divider = 2;
+            short result;
+            bool isRemainderOfDivision = false;
+            foreach (var i in FileByteArray)
+            {
+                result = (short)(i / divider);
+                if (isRemainderOfDivision)
+                {
+                    if (result < 10)
+                    {
+                        result += 5;
+                    }
+                    else if (result < 100)
+                    {
+                        result += 50;
+                    }
+                    else
+                    {
+                        result += 500;
+                    }
+                }
+                isRemainderOfDivision = i % divider != 0;
+                if (byte.MaxValue < result)
+                {
+                    byte moduloValue;
+                    moduloValue = (byte)(result % 10);
+                    result = (short)(result / 10);
+                    compressedFile.Add((byte)result);
+                    compressedFile.Add(moduloValue);
+                }
+                else
+                {
+                    compressedFile.Add((byte)result);
+                }
+            }
         }
     }
 }
