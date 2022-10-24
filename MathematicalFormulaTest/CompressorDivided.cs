@@ -15,21 +15,6 @@ namespace MathematicalFormulaTest
             List<byte> compressionOperations = new List<byte>();
             throw new Exception("Not implemented");
         }
-        public static ulong DecompressByteArray(byte compressedFile, List<byte> operation)
-        {
-            ulong decopressedFile = compressedFile;
-            operation.Reverse();
-            foreach (byte i in operation)
-            {
-                if (i == 1)
-                {
-                    decopressedFile += i;
-                    continue;
-                }
-                decopressedFile = decopressedFile * i;
-            }
-            return decopressedFile;
-        }
         private static void DivideByTwo()
         {
             List<short> compressedFile = new List<short>();
