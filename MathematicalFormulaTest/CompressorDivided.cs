@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathematicalFormulaTest
 {
-    public static class CompressorDivided
+    internal static class CompressorDivided
     {
         private static byte[] FileByteArray;
         public static (byte, List<byte>) CompressByteArray(ulong byteArray)
