@@ -5,25 +5,27 @@ using MathematicalFormulaTest;
 
 namespace MathematicalFormulaTest_Test
 {
-    public class UnitTest1
+    public class CompressorDividedTest
     {
         [Fact]
-        public void Test1()
+        public void DivideByTwo_Test()
         {
             //Arrange
-            byte[] tab = new byte[] { 9, 223, 37, 20, 36, 85, 47, 75, 80, 6 };
-            string expected = ((long.MaxValue - 1) / 2).ToString();
+            short[] tab = new short[] { 9, 223, 37, 20, 36, 84 };
+            string expected = (9223037020036084 / 2).ToString();
             //Act
             var method = typeof(CompressorDivided).GetMethod("DivideByTwo", BindingFlags.Static | BindingFlags.NonPublic);
-            var field = typeof(CompressorDivided).GetField("FileByteArray", BindingFlags.Static | BindingFlags.NonPublic);
+            var field = typeof(CompressorDivided).GetField("CompressingInProgressFile", BindingFlags.Static | BindingFlags.NonPublic);
             field.SetValue(null, tab);
             method.Invoke(null, null);
             //Assert
             string actual = "";
-            foreach (var i in (byte[])field.GetValue(null))
+            foreach (var i in (short[])field.GetValue(null))
             {
                 actual += i;
             }
+            actual = actual.Replace("0", "");
+            expected = expected.Replace("0", "");
             Assert.Equal(expected, actual);
         }
     }
