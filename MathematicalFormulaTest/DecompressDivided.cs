@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace MathematicalFormulaTest
 {
-    static class DecompressDivided
+    public static class DecompressDivided
     {
-        static byte[] DecompressingInProgressFile;
+        static short[] DecompressingInProgressFile;
         public static void DecompressByteArray(byte[] fileByteArray, byte[] compressingFunctionValues)
         {
-            DecompressingInProgressFile = fileByteArray;
+            for (int i = 0; i < fileByteArray.Length; i++)
+            {
+                DecompressingInProgressFile[i] = fileByteArray[i];
+            }
             DecompressingInProgressFile.Reverse();
         }
         private static void DecompressByteArray(int multiplicator)
@@ -39,6 +42,7 @@ namespace MathematicalFormulaTest
                     decompressedFile.Add(result);
                 }
             }
+            DecompressingInProgressFile = decompressedFile.ToArray();
         }
     }
 }
