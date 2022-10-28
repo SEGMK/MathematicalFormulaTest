@@ -9,6 +9,11 @@ namespace MathematicalFormulaTest
     public static class CompressorDivided
     {
         private static short[] CompressingInProgressFile;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns>(compressedFile, compressionOperations, nonCompressibleValues)</returns>
         public static (byte[], byte[], byte[]) CompressByteArray(byte[] byteArray)
         {
             for (int i = 0; i < byteArray.Length; i++)
