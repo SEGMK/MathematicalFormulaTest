@@ -9,7 +9,7 @@ namespace MathematicalFormulaTest
     public static class CompressorDivided
     {
         private static short[] CompressingInProgressFile;
-        public static (byte, List<byte>) CompressByteArray(byte[] byteArray)
+        public static (ulong, List<byte>, List<byte>) CompressByteArray(byte[] byteArray)
         {
             for (int i = 0; i < byteArray.Length; i++)
             {
@@ -18,56 +18,29 @@ namespace MathematicalFormulaTest
             List<byte> compressionOperations = new List<byte>();
             List<byte> restFromCompressionOperations = new List<byte>();
             byte j = 0;
-            while (20 <= CompressingInProgressFile.Length) //find the best value for this
+            while (6 <= CompressingInProgressFile.Length) //find the best value for this
             {
                 if (CompressingInProgressFile[CompressingInProgressFile.Length] % 5 == 0)
-                {
-                    DivideByFive();
-                }
+                    Divide(5);
                 else if (CompressingInProgressFile.IsDividsableByThree())
-                {
-                    DivideByThree();
-                }
+                    Divide(3);
                 else if (CompressingInProgressFile[CompressingInProgressFile.Length] % 2 == 0)
-                {
-                    DivideByTwo();
-                }
+                    Divide(2);
                 else
-                {
                     restFromCompressionOperations.Add(j);
-                }
                 j++;
             }
-            throw new Exception("Not implemented");
-        }
-        private static void DivideByFive()
-        {
-            List<short> compressedFile = new List<short>();
-            byte divider = 5;
-            short result;
-            byte reminder = 0;
-            short additionalValue = 0;
+            string compressedFileString = null;
             foreach (var i in CompressingInProgressFile)
             {
-                if (reminder != 0)
-                {
-                    additionalValue += (short)(reminder * 1000);
-                }
-                result = (short)((i + additionalValue) / divider);
-                reminder = (byte)((i + additionalValue) % divider);
-                compressedFile.Add(result);
-                additionalValue = 0;
+                compressedFileString += i;
             }
-            while (compressedFile[0] == 0)
-            {
-                compressedFile.RemoveAt(0);
-            }
-            CompressingInProgressFile = compressedFile.ToArray();
+            ulong compressedFile = ulong.Parse(compressedFileString);
+            return (compressedFile, compressionOperations, restFromCompressionOperations);
         }
-        private static void DivideByThree()
+        private static void Divide(byte divider)
         {
             List<short> compressedFile = new List<short>();
-            byte divider = 3;
             short result;
             byte reminder = 0;
             short additionalValue = 0;
@@ -85,24 +58,6 @@ namespace MathematicalFormulaTest
             while (compressedFile[0] == 0)
             { 
                 compressedFile.RemoveAt(0);
-            }
-            CompressingInProgressFile = compressedFile.ToArray();
-        }
-        private static void DivideByTwo()
-        {
-            List<short> compressedFile = new List<short>();
-            byte divider = 2;
-            short result;
-            bool isRemainderOfDivision = false;
-            foreach (var i in CompressingInProgressFile)
-            {
-                result = (short)(i / divider);
-                if (isRemainderOfDivision)
-                {
-                    result += 500;
-                }
-                isRemainderOfDivision = i % divider != 0;
-                compressedFile.Add(result);
             }
             CompressingInProgressFile = compressedFile.ToArray();
         }
