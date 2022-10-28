@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,25 @@ namespace MathematicalFormulaTest
                 }
             }
             return tryDivide == 0;
+        }
+        public static byte[] ToByteArray(this short[] tab) //where T : INumber (.NET 7.0)
+        {
+            List<byte> byteList = new List<byte>();
+            string tabElements = null;
+            foreach (var i in tab)
+            {
+                tabElements += tab;
+            }
+            byte element;
+            while (tabElements != String.Empty)
+            {
+                if (!byte.TryParse(tabElements[0..2], out element))
+                {
+                    element = byte.Parse(tabElements[0..1]);
+                }
+                byteList.Add(element);
+            }
+            return byteList.ToArray();
         }
     }
 }
