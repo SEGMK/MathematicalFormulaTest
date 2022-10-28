@@ -8,7 +8,7 @@ namespace MathematicalFormulaTest
 {
     public static class ArrayExtension
     {
-        public static bool IsDividsableByThreeINumber(this short[] tab) //where T : INumber (.NET 7.0)
+        public static bool IsDividsableByThree(this short[] tab) //where T : INumber (.NET 7.0)
         {
             ulong tryDivide = 0;
             List<short> list = tab.ToList();
