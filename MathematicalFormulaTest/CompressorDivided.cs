@@ -9,7 +9,7 @@ namespace MathematicalFormulaTest
     public static class CompressorDivided
     {
         private static short[] CompressingInProgressFile;
-        public static (ulong, List<byte>, List<byte>) CompressByteArray(byte[] byteArray)
+        public static (byte[], byte[], byte[]) CompressByteArray(byte[] byteArray)
         {
             for (int i = 0; i < byteArray.Length; i++)
             {
@@ -30,13 +30,7 @@ namespace MathematicalFormulaTest
                     restFromCompressionOperations.Add(j);
                 j++;
             }
-            string compressedFileString = null;
-            foreach (var i in CompressingInProgressFile)
-            {
-                compressedFileString += i;
-            }
-            ulong compressedFile = ulong.Parse(compressedFileString);
-            return (compressedFile, compressionOperations, restFromCompressionOperations);
+            return (CompressingInProgressFile.ToByteArray(), compressionOperations.ToArray(), restFromCompressionOperations.ToArray());
         }
         private static void Divide(byte divider)
         {
