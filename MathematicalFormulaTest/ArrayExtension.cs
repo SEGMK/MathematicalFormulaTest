@@ -31,16 +31,33 @@ namespace MathematicalFormulaTest
             string tabElements = null;
             foreach (var i in tab)
             {
-                tabElements += tab;
+                tabElements += i;
             }
             byte element;
             while (tabElements != String.Empty)
             {
-                if (!byte.TryParse(tabElements[0..2], out element))
+                try
                 {
-                    element = byte.Parse(tabElements[0..1]);
+                    if (tabElements[0] == '0')
+                    {
+                        byteList.Add(byte.Parse("0"));
+                        tabElements = tabElements.Remove(0, 1);
+                        continue;
+                    }
+                    if (!byte.TryParse(tabElements[0..3], out element))
+                    {
+                        element = byte.Parse(tabElements[0..2]);
+                        tabElements = tabElements.Remove(0, 2);
+                    }
+                    else
+                        tabElements = tabElements.Remove(0, 3);
+                    byteList.Add(element);
                 }
-                byteList.Add(element);
+                catch (ArgumentOutOfRangeException)
+                {
+                    byteList.Add(byte.Parse(tabElements));
+                    tabElements = String.Empty;
+                }
             }
             return byteList.ToArray();
         }
