@@ -16,23 +16,34 @@ namespace MathematicalFormulaTest
         /// <returns>(compressedFile, compressionOperations, nonCompressibleValues)</returns>
         public static (byte[], byte[], byte[]) CompressByteArray(byte[] byteArray)
         {
+            List<short> shorts = new List<short>();
             for (int i = 0; i < byteArray.Length; i++)
             {
-                CompressingInProgressFile[i] = byteArray[i];
+                shorts.Add(byteArray[i]);
             }
+            CompressingInProgressFile = shorts.ToArray();
             List<byte> compressionOperations = new List<byte>();
             List<byte> restFromCompressionOperations = new List<byte>();
             byte j = 0;
             while (6 <= CompressingInProgressFile.Length) //find the best value for this
             {
-                if (CompressingInProgressFile[CompressingInProgressFile.Length] % 5 == 0)
+                if (CompressingInProgressFile[CompressingInProgressFile.Length - 1] % 5 == 0)
+                {
                     Divide(5);
-                else if (CompressingInProgressFile.IsDividsableByThree())
-                    Divide(3);
-                else if (CompressingInProgressFile[CompressingInProgressFile.Length] % 2 == 0)
+                    compressionOperations.Add(5);
+                }
+                //else if (CompressingInProgressFile.IsDividsableByThree())
+                //Divide(3);
+                else if (CompressingInProgressFile[CompressingInProgressFile.Length - 1] % 2 == 0)
+                {
                     Divide(2);
+                    compressionOperations.Add(2);
+                }
                 else
+                {
+                    CompressingInProgressFile[CompressingInProgressFile.Length - 1] -= 1;
                     restFromCompressionOperations.Add(j);
+                }
                 j++;
             }
             return (CompressingInProgressFile.ToByteArray(), compressionOperations.ToArray(), restFromCompressionOperations.ToArray());

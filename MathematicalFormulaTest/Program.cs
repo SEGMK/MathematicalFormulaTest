@@ -15,12 +15,27 @@ namespace MathematicalFormulaTest
         static void Main(string[] args)
         {
             FileInByteArray = LoadFile.FileToByteArray();
+            var file = CompressorDivided.CompressByteArray(FileInByteArray);
+            List<byte> compressedFileList = new List<byte>();
+            foreach (var i in file.Item1)
+            { 
+                compressedFileList.Add(i);
+            }
+            foreach (var i in file.Item2)
+            {
+                compressedFileList.Add(i);
+            }
+            foreach (var i in file.Item3)
+            {
+                compressedFileList.Add(i);
+            }
+            byte[] compressedFileTab = compressedFileList.ToArray();
+            using var writer = new BinaryWriter(File.OpenWrite("CompressedFile"));
+            writer.Write(compressedFileTab);
         }
         public static void CompressFileByDividing()
         { 
-            (byte, List<byte>) compressedFile = CompressorDivided.CompressByteArray(FileInByteArray);
-            DecompressedByteArray = CompressorDivided.DecompressByteArray(compressedFile.Item1, compressedFile.Item2);
-            PrintOutCompressionResoult(compressedFile.Item1, "CompressorDivided");
+
         }
         public static void CompressFileBySqrt()
         {
