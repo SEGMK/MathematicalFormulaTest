@@ -13,7 +13,7 @@ namespace MathematicalFormulaTest
         /// 
         /// </summary>
         /// <param name="byteArray"></param>
-        /// <returns>(compressedFile, compressionOperations, nonCompressibleValues)</returns>
+        /// <returns>(compressedFile, compressionOperations, indexOfFailedCompression)</returns>
         public static (byte[], byte[], byte[]) CompressByteArray(byte[] byteArray)
         {
             List<short> shorts = new List<short>();
@@ -32,8 +32,11 @@ namespace MathematicalFormulaTest
                     Divide(5);
                     compressionOperations.Add(5);
                 }
-                //else if (CompressingInProgressFile.IsDividsableByThree())
-                //Divide(3);
+                else if (CompressingInProgressFile.IsDividsableByThree())
+                {
+                    Divide(3);
+                    compressionOperations.Add(3);
+                }
                 else if (CompressingInProgressFile[CompressingInProgressFile.Length - 1] % 2 == 0)
                 {
                     Divide(2);

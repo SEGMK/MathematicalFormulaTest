@@ -33,10 +33,6 @@ namespace MathematicalFormulaTest
             using var writer = new BinaryWriter(File.OpenWrite("CompressedFile"));
             writer.Write(compressedFileTab);
         }
-        public static void CompressFileByDividing()
-        { 
-
-        }
         public static void CompressFileBySqrt()
         {
             (int, ulong, List<ulong>) compressedFile = CompressorSqrt.CompressByteArray(OriginalByteArray);
